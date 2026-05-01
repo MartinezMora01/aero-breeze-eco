@@ -287,26 +287,30 @@ const Index = () => {
         </div>
       </section>
 
+      {/* GALERÍA */}
+      <Gallery />
+
+      {/* TESTIMONIOS */}
+      <Testimonials />
+
       {/* CTA / CONTACTO */}
-      <section id="contacto" className="py-32 md:py-40 px-6 md:px-12">
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-10">
-          <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
-            Empieza hoy
-          </span>
-          <h2 className="font-serif text-5xl md:text-7xl leading-[1.05] text-balance">
-            Lleva <span className="italic text-sage">aire fresco</span> a tu hogar.
-          </h2>
-          <p className="text-lg md:text-xl text-ink/70 max-w-[50ch] font-light leading-relaxed">
-            Estamos listos para diseñar e instalar tu panel AeroFreez™ a la
-            medida de tu ventana. Escríbenos y conversemos.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 h-16 px-10 text-base">
-              Solicitar instalación
-            </Button>
-            <Button size="lg" variant="outline" className="rounded-full border-ink/20 hover:bg-mint/30 h-16 px-10 text-base">
-              Hablar con el equipo
-            </Button>
+      <section id="contacto" className="py-32 md:py-40 px-6 md:px-12 bg-mint/40">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="flex flex-col gap-8">
+            <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
+              Empieza hoy
+            </span>
+            <h2 className="font-serif text-5xl md:text-7xl leading-[1.05] text-balance">
+              Lleva <span className="italic text-sage">aire fresco</span> a tu hogar.
+            </h2>
+            <p className="text-lg md:text-xl text-ink/70 max-w-[50ch] font-light leading-relaxed">
+              Estamos listos para diseñar e instalar tu panel AeroFreez™ a la
+              medida de tu ventana. Cuéntanos sobre tu espacio y te respondemos
+              en menos de 48 horas.
+            </p>
+          </div>
+          <div className="flex justify-center lg:justify-end">
+            <ContactForm />
           </div>
         </div>
       </section>
