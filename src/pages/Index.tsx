@@ -2,6 +2,9 @@ import heroImg from "@/assets/aerofreez-real.png";
 import detailImg from "@/assets/aerofreez-detail.jpg";
 import bottlesImg from "@/assets/aerofreez-bottles.jpg";
 import { Button } from "@/components/ui/button";
+import { Gallery } from "@/components/Gallery";
+import { Testimonials } from "@/components/Testimonials";
+import { ContactForm } from "@/components/ContactForm";
 
 const Index = () => {
   return (
