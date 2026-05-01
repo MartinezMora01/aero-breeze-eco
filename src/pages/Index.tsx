@@ -24,48 +24,40 @@ const Index = () => {
       </nav>
 
       {/* HERO */}
-      <header className="px-6 md:px-12 pt-20 md:pt-32 pb-32 max-w-[1440px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end">
-          <div className="lg:col-span-8 flex flex-col gap-10">
-            <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
-              Vol. I — Ventilación regenerativa
-            </span>
-            <h1 className="font-serif text-6xl md:text-7xl lg:text-[8rem] leading-[0.95] tracking-tight text-balance">
-              Plástico rígido,
-              <br />
-              <span className="italic text-sage">tejido en</span>
-              <br />
-              aire respirable.
-            </h1>
-            <p className="font-light text-xl md:text-2xl text-ink/70 max-w-[48ch] leading-relaxed text-pretty">
-              AEROFREEZ es un panel de ventilación arquitectónico fabricado a partir de
-              botellas plásticas recicladas. Silencioso, estructural y sorprendentemente suave.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 h-16 px-10 text-base">
-                Conocer el producto
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-ink/20 hover:bg-mint/30 h-16 px-10 text-base">
-                Ver ficha técnica
-              </Button>
-            </div>
+      <header className="px-6 md:px-12 pt-20 md:pt-28 pb-24 max-w-[1440px] mx-auto">
+        <div className="flex flex-col items-center text-center gap-10 mb-16">
+          <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
+            Vol. I — Ventilación regenerativa
+          </span>
+          <h1 className="font-serif text-6xl md:text-7xl lg:text-[8.5rem] leading-[0.95] tracking-tight text-balance max-w-6xl">
+            Plástico rígido, <span className="italic text-sage">tejido en</span> aire respirable.
+          </h1>
+          <p className="font-light text-xl md:text-2xl text-ink/70 max-w-[52ch] leading-relaxed text-pretty">
+            AEROFREEZ es un panel de ventilación arquitectónico fabricado con
+            botellas plásticas recicladas. Silencioso, sostenible y sorprendentemente bello.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 pt-2">
+            <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 h-16 px-10 text-base">
+              Conocer el producto
+            </Button>
+            <Button size="lg" variant="outline" className="rounded-full border-ink/20 hover:bg-mint/30 h-16 px-10 text-base">
+              Ver ficha técnica
+            </Button>
           </div>
+        </div>
 
-          <div className="lg:col-span-4">
-            <div className="bg-blush rounded-[3rem] p-2 aspect-[4/5] relative shadow-card">
-              <img
-                src={heroImg}
-                alt="Panel de ventilación AEROFREEZ hecho con botellas recicladas"
-                className="w-full h-full object-cover rounded-[2.6rem]"
-              />
-              <div className="absolute bottom-6 left-6 right-6 bg-sand/95 backdrop-blur-md p-6 rounded-3xl">
-                <div className="text-xs uppercase tracking-widest text-ink/60 mb-2">
-                  Acabado
-                </div>
-                <div className="font-serif text-xl">
-                  Mate, micro-perforado, traslúcido.
-                </div>
-              </div>
+        <div className="bg-blush rounded-[3rem] p-2 md:p-3 shadow-card relative">
+          <img
+            src={heroImg}
+            alt="Panel AeroFreez instalado en una ventana con monitor de validación térmica"
+            className="w-full aspect-[16/9] object-cover rounded-[2.6rem]"
+          />
+          <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-sand/95 backdrop-blur-md p-5 md:p-6 rounded-3xl max-w-xs">
+            <div className="text-xs uppercase tracking-widest text-ink/60 mb-2">
+              Instalación real
+            </div>
+            <div className="font-serif text-lg md:text-xl leading-snug">
+              Marco de madera + botellas PET recuperadas.
             </div>
           </div>
         </div>
