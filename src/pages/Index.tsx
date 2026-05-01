@@ -14,11 +14,11 @@ const Index = () => {
         <div className="font-sans uppercase tracking-[0.2em] text-sm font-semibold">
           AeroFreez<sup className="text-[0.6em] ml-0.5">™</sup>
         </div>
-        <div className="hidden md:flex items-center gap-10 text-sm text-ink/70">
-          <a href="#producto" className="hover:text-ink transition-colors">Producto</a>
+        <div className="hidden md:flex items-center gap-8 text-sm text-ink/70">
           <a href="#proceso" className="hover:text-ink transition-colors">Proceso</a>
           <a href="#monitor" className="hover:text-ink transition-colors">Monitor</a>
-          <a href="#impacto" className="hover:text-ink transition-colors">Impacto</a>
+          <a href="#galeria" className="hover:text-ink transition-colors">Galería</a>
+          <a href="#testimonios" className="hover:text-ink transition-colors">Testimonios</a>
           <a href="#contacto" className="hover:text-ink transition-colors">Contacto</a>
         </div>
         <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 px-7 h-12 text-sm">
