@@ -1,7 +1,6 @@
 import heroImg from "@/assets/aerofreez-real.png";
 import detailImg from "@/assets/aerofreez-detail.jpg";
 import bottlesImg from "@/assets/aerofreez-bottles.jpg";
-import panelImg from "@/assets/aerofreez-hero.jpg";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
@@ -10,16 +9,17 @@ const Index = () => {
       {/* NAV */}
       <nav className="px-6 md:px-12 py-6 flex items-center justify-between max-w-[1440px] mx-auto">
         <div className="font-sans uppercase tracking-[0.2em] text-sm font-semibold">
-          AEROFREEZ
+          AeroFreez<sup className="text-[0.6em] ml-0.5">™</sup>
         </div>
         <div className="hidden md:flex items-center gap-10 text-sm text-ink/70">
           <a href="#producto" className="hover:text-ink transition-colors">Producto</a>
           <a href="#proceso" className="hover:text-ink transition-colors">Proceso</a>
-          <a href="#beneficios" className="hover:text-ink transition-colors">Beneficios</a>
+          <a href="#monitor" className="hover:text-ink transition-colors">Monitor</a>
+          <a href="#impacto" className="hover:text-ink transition-colors">Impacto</a>
           <a href="#contacto" className="hover:text-ink transition-colors">Contacto</a>
         </div>
         <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 px-7 h-12 text-sm">
-          Solicitar muestra
+          Solicitar instalación
         </Button>
       </nav>
 
@@ -27,21 +27,22 @@ const Index = () => {
       <header className="px-6 md:px-12 pt-20 md:pt-28 pb-24 max-w-[1440px] mx-auto">
         <div className="flex flex-col items-center text-center gap-10 mb-16">
           <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
-            Vol. I — Ventilación regenerativa
+            AeroFreez™ — Eco-Engineering Solutions
           </span>
           <h1 className="font-serif text-6xl md:text-7xl lg:text-[8.5rem] leading-[0.95] tracking-tight text-balance max-w-6xl">
-            Plástico rígido, <span className="italic text-sage">tejido en</span> aire respirable.
+            Enfría tu hogar, <span className="italic text-sage">refresca</span> al planeta.
           </h1>
-          <p className="font-light text-xl md:text-2xl text-ink/70 max-w-[52ch] leading-relaxed text-pretty">
-            AEROFREEZ es un panel de ventilación arquitectónico fabricado con
-            botellas plásticas recicladas. Silencioso, sostenible y sorprendentemente bello.
+          <p className="font-light text-xl md:text-2xl text-ink/70 max-w-[54ch] leading-relaxed text-pretty">
+            AeroFreez es un panel de ventilación pasiva fabricado con botellas PET
+            recicladas, montadas sobre un marco de madera. Reduce hasta <strong className="font-medium text-ink">6 °C</strong> la
+            temperatura interior — sin electricidad, sin ruido, sin huella.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-2">
             <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 h-16 px-10 text-base">
-              Conocer el producto
+              Quiero uno en mi casa
             </Button>
             <Button size="lg" variant="outline" className="rounded-full border-ink/20 hover:bg-mint/30 h-16 px-10 text-base">
-              Ver ficha técnica
+              Cómo funciona
             </Button>
           </div>
         </div>
@@ -49,7 +50,7 @@ const Index = () => {
         <div className="bg-blush rounded-[3rem] p-2 md:p-3 shadow-card relative">
           <img
             src={heroImg}
-            alt="Panel AeroFreez instalado en una ventana con monitor de validación térmica"
+            alt="Panel AeroFreez™ instalado en una ventana, junto al monitor de validación térmica en tiempo real"
             className="w-full aspect-[16/9] object-cover rounded-[2.6rem]"
           />
           <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 bg-sand/95 backdrop-blur-md p-5 md:p-6 rounded-3xl max-w-xs">
@@ -57,7 +58,7 @@ const Index = () => {
               Instalación real
             </div>
             <div className="font-serif text-lg md:text-xl leading-snug">
-              Marco de madera + botellas PET recuperadas.
+              Marco de madera + 60 botellas PET aprovechando el efecto Bernoulli.
             </div>
           </div>
         </div>
@@ -69,22 +70,24 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-5 flex flex-col gap-8">
               <span className="text-xs uppercase tracking-[0.25em] text-ink/60">
-                El proceso
+                ¿Cómo funciona?
               </span>
               <h2 className="font-serif text-5xl md:text-6xl leading-tight text-balance">
-                La alquimia de la <span className="italic text-sage">recuperación.</span>
+                Física simple, <span className="italic text-sage">resultados reales.</span>
               </h2>
               <p className="text-lg text-ink/75 leading-relaxed max-w-[42ch] text-pretty">
-                No fundimos: extruimos y entrelazamos. Tratamos el PET descartado como
-                fibra cruda, creando un panel que se siente más cercano al lino pesado
-                que al plástico industrial.
+                El aire caliente del exterior entra por la boca ancha de cada
+                botella y se acelera al pasar por el cuello más estrecho. Esa
+                aceleración baja la presión y enfría la corriente antes de
+                liberarla en el interior. Es el principio de Bernoulli puesto al
+                servicio del confort doméstico.
               </p>
 
               <div className="flex flex-col gap-8 mt-6">
                 {[
-                  { t: "Origen recuperado", d: "Botellas PET recolectadas en iniciativas locales y costeras." },
-                  { t: "Microhilado", d: "Las escamas se transforman en filamentos resistentes y porosos." },
-                  { t: "Unión térmica", d: "Fusionados sin adhesivos para mantener la permeabilidad al aire." },
+                  { t: "Botellas recolectadas", d: "Recuperamos botellas PET de la comunidad y las lavamos a fondo." },
+                  { t: "Ensamble manual", d: "Se cortan y encajan en un marco de madera, formando una rejilla aerodinámica." },
+                  { t: "Instalación en ventana", d: "El panel reemplaza al vidrio o se monta sobre él. Cero consumo eléctrico." },
                 ].map((step, i) => (
                   <div key={i} className="flex items-start gap-6">
                     <span className="font-serif text-3xl text-sage tabular-nums shrink-0 mt-1">
@@ -105,7 +108,7 @@ const Index = () => {
               <div className="bg-sky rounded-[2.5rem] aspect-square p-2 shadow-soft">
                 <img
                   src={bottlesImg}
-                  alt="Botellas plásticas recicladas listas para ser procesadas"
+                  alt="Botellas PET recuperadas listas para ser ensambladas"
                   loading="lazy"
                   className="w-full h-full object-cover rounded-[2.2rem] mix-blend-multiply"
                 />
@@ -113,7 +116,7 @@ const Index = () => {
               <div className="bg-blush rounded-[2.5rem] aspect-square p-2 mt-16 shadow-soft">
                 <img
                   src={detailImg}
-                  alt="Detalle del entramado interno del panel AEROFREEZ"
+                  alt="Detalle del entramado de botellas del panel AeroFreez"
                   loading="lazy"
                   className="w-full h-full object-cover rounded-[2.2rem] mix-blend-multiply"
                 />
@@ -123,14 +126,75 @@ const Index = () => {
         </div>
       </section>
 
+      {/* MONITOR EN TIEMPO REAL */}
+      <section id="monitor" className="py-32 md:py-40 px-6 md:px-12 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-6 flex flex-col gap-8">
+            <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
+              Validación térmica en tiempo real
+            </span>
+            <h2 className="font-serif text-5xl md:text-6xl leading-tight text-balance">
+              Mide el frescor desde tu <span className="italic text-sage">teléfono.</span>
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed max-w-[44ch] text-pretty">
+              Cada panel se acompaña de un sensor que envía la temperatura
+              interior y exterior a la app AeroFreez™ Monitor. Verifica el
+              ahorro y el impacto ambiental en cualquier momento.
+            </p>
+          </div>
+
+          <div className="lg:col-span-6">
+            <div className="bg-mint rounded-[2.5rem] p-8 md:p-10 shadow-card">
+              <div className="flex items-center justify-between mb-8 pb-4 border-b border-ink/10">
+                <div className="font-serif text-2xl">AeroFreez™ Monitor</div>
+                <span className="text-xs uppercase tracking-widest text-ink/60">En vivo</span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 mb-10">
+                <div className="bg-sand rounded-2xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-widest text-ink/50 mb-2">Interior</div>
+                  <div className="font-serif text-4xl tabular-nums">26°<span className="text-2xl">C</span></div>
+                </div>
+                <div className="bg-sand rounded-2xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-widest text-ink/50 mb-2">Exterior</div>
+                  <div className="font-serif text-4xl tabular-nums">32°<span className="text-2xl">C</span></div>
+                </div>
+                <div className="bg-ink text-sand rounded-2xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-widest text-sand/60 mb-2">Δ</div>
+                  <div className="font-serif text-4xl tabular-nums">-6°<span className="text-2xl">C</span></div>
+                </div>
+              </div>
+
+              <div className="text-xs uppercase tracking-widest text-ink/60 mb-4">
+                Impacto ambiental — este mes
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="flex justify-between items-baseline border-b border-ink/10 pb-3">
+                  <span className="text-sm text-ink/70">CO₂ evitado</span>
+                  <span className="font-serif text-2xl tabular-nums">105 kg</span>
+                </div>
+                <div className="flex justify-between items-baseline border-b border-ink/10 pb-3">
+                  <span className="text-sm text-ink/70">PET recuperado</span>
+                  <span className="font-serif text-2xl tabular-nums">4 500 botellas</span>
+                </div>
+                <div className="flex justify-between items-baseline">
+                  <span className="text-sm text-ink/70">Ahorro estimado</span>
+                  <span className="font-serif text-2xl tabular-nums">$22.50 / mes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* BENEFICIOS */}
-      <section id="beneficios" className="py-32 md:py-40 px-6 md:px-12 max-w-[1440px] mx-auto">
+      <section id="producto" className="py-32 md:py-40 px-6 md:px-12 max-w-[1440px] mx-auto">
         <div className="mb-20 max-w-3xl">
           <span className="text-xs uppercase tracking-[0.25em] text-ink/50 mb-6 block">
-            Propiedades
+            Beneficios
           </span>
           <h2 className="font-serif text-5xl md:text-6xl leading-tight text-balance">
-            Diseñado para los sentidos, pensado para tu espacio interior.
+            Frescor que cuida tu bolsillo y el planeta.
           </h2>
         </div>
 
@@ -139,23 +203,23 @@ const Index = () => {
             {
               num: "01",
               cat: "Térmico",
-              title: "Flujo cruzado pasivo.",
-              desc: "El entramado microscópico ralentiza la velocidad del aire mientras mantiene un intercambio total. Las corrientes se vuelven brisa suave.",
+              title: "Hasta 6 °C menos.",
+              desc: "El efecto Bernoulli enfría el aire al pasar por el cuello de cada botella, sin compresores ni refrigerantes.",
               bg: "bg-mint",
             },
             {
               num: "02",
-              cat: "Acústico",
-              title: "Frecuencias suaves.",
-              desc: "A diferencia de las rejillas metálicas, su composición fibrosa absorbe y difunde el ruido mecánico de alta frecuencia hasta 42 dB.",
+              cat: "Económico",
+              title: "Cero electricidad.",
+              desc: "Funciona solo con el viento. Reduce tu factura eléctrica al evitar el uso del aire acondicionado y ventiladores.",
               bg: "bg-blush",
               offset: "md:mt-12",
             },
             {
               num: "03",
-              cat: "Pureza",
-              title: "Cero emisiones VOC.",
-              desc: "Sin resinas, sin adhesivos, sin compuestos volátiles. La integridad del panel depende solo del entrelazado físico de los hilos reciclados.",
+              cat: "Ecológico",
+              title: "Botellas con propósito.",
+              desc: "Cada panel rescata decenas de botellas PET que ya no terminarán en ríos, playas o vertederos.",
               bg: "bg-sky",
             },
           ].map((c, i) => (
@@ -180,41 +244,41 @@ const Index = () => {
         </div>
       </section>
 
-      {/* SOSTENIBILIDAD */}
-      <section className="bg-sage text-sand py-32 md:py-40 rounded-t-[4rem]">
+      {/* IMPACTO */}
+      <section id="impacto" className="bg-sage text-sand py-32 md:py-40 rounded-t-[4rem]">
         <div className="max-w-[1440px] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-sand/20 pb-20 mb-16">
             <div className="md:col-span-2">
               <span className="text-xs uppercase tracking-[0.25em] text-sand/70 mb-6 block">
-                Impacto
+                Impacto verificado
               </span>
               <h2 className="font-serif text-5xl md:text-6xl leading-tight text-balance max-w-[18ch]">
-                Una forma hermosa de <span className="italic">no dejar huella.</span>
+                Cifras que hablan por sí solas.
               </h2>
             </div>
             <div className="flex flex-col justify-end">
-              <div className="font-serif text-6xl tabular-nums mb-3">84</div>
+              <div className="font-serif text-6xl tabular-nums mb-3">
+                105<span className="text-3xl ml-1">kg</span>
+              </div>
               <div className="text-sm uppercase tracking-widest text-sand/70">
-                Botellas por metro cuadrado
+                CO₂ evitado / mes
               </div>
             </div>
             <div className="flex flex-col justify-end">
-              <div className="font-serif text-6xl tabular-nums mb-3">
-                100<span className="text-3xl">%</span>
-              </div>
+              <div className="font-serif text-6xl tabular-nums mb-3">4 500</div>
               <div className="text-sm uppercase tracking-widest text-sand/70">
-                Reciclable en circuito cerrado
+                Botellas PET recuperadas
               </div>
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
             <p className="max-w-[44ch] text-pretty text-sand/85 font-light text-lg leading-relaxed">
-              Cada instalación reduce activamente la presión sobre los ecosistemas,
-              transformando un residuo en un activo arquitectónico.
+              Cada panel AeroFreez instalado evita emisiones, recupera plástico y
+              ahorra dinero. Una solución hecha en casa que escala con la comunidad.
             </p>
             <Button size="lg" className="rounded-full bg-sand text-sage hover:bg-mint hover:text-ink h-16 px-10 text-base shrink-0">
-              Ver especificaciones
+              Ver reporte completo
             </Button>
           </div>
         </div>
@@ -224,18 +288,18 @@ const Index = () => {
       <section id="contacto" className="py-32 md:py-40 px-6 md:px-12">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-10">
           <span className="text-xs uppercase tracking-[0.25em] text-ink/50">
-            Comencemos
+            Empieza hoy
           </span>
           <h2 className="font-serif text-5xl md:text-7xl leading-[1.05] text-balance">
-            Lleva <span className="italic text-sage">aire nuevo</span> a tu próximo proyecto.
+            Lleva <span className="italic text-sage">aire fresco</span> a tu hogar.
           </h2>
           <p className="text-lg md:text-xl text-ink/70 max-w-[50ch] font-light leading-relaxed">
-            Trabajamos con arquitectos, diseñadores y desarrolladores que buscan
-            integrar materiales conscientes sin renunciar a la elegancia.
+            Estamos listos para diseñar e instalar tu panel AeroFreez™ a la
+            medida de tu ventana. Escríbenos y conversemos.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <Button size="lg" className="rounded-full bg-ink text-sand hover:bg-ink/90 h-16 px-10 text-base">
-              Solicitar una muestra
+              Solicitar instalación
             </Button>
             <Button size="lg" variant="outline" className="rounded-full border-ink/20 hover:bg-mint/30 h-16 px-10 text-base">
               Hablar con el equipo
@@ -248,9 +312,9 @@ const Index = () => {
       <footer className="border-t border-ink/10 py-10 px-6 md:px-12">
         <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-ink/60">
           <div className="uppercase tracking-[0.2em] font-medium text-ink">
-            AEROFREEZ
+            AeroFreez™ — Eco-Engineering Solutions
           </div>
-          <div>© {new Date().getFullYear()} — Diseño regenerativo.</div>
+          <div>© {new Date().getFullYear()} — Innovación que respira.</div>
         </div>
       </footer>
     </div>
