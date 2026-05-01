@@ -1,6 +1,7 @@
-import heroImg from "@/assets/aerofreez-hero.jpg";
+import heroImg from "@/assets/aerofreez-real.png";
 import detailImg from "@/assets/aerofreez-detail.jpg";
 import bottlesImg from "@/assets/aerofreez-bottles.jpg";
+import panelImg from "@/assets/aerofreez-hero.jpg";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
