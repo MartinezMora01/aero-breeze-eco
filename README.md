@@ -1,54 +1,45 @@
-# API Martinez 
+# Aero-Freez QR System
 
-Base de API REST en Express con estructura por capas.
+Esta rama queda lista para GitHub Pages como sitio estático. La versión pública usa un solo archivo HTML y no depende de backend.
 
-## Diferencias frente al ejemplo base
+## Qué incluye
 
-- Recurso principal: `clientes`.
-- Campo adicional opcional: `tipo` (`basic` o `premium`).
-- Filtro en listado por query param: `?activo=true|false`.
+- Mini web en [index.html](index.html)
+- App Flutter en [lib/main.dart](lib/main.dart)
+- Backend opcional conservado en [backend/server.js](backend/server.js) por si luego lo quieres reutilizar
 
-## Estructura
+## GitHub Pages
 
-- `src/config`: variables de entorno.
-- `src/routes`: rutas y agrupadores.
-- `src/controllers`: logica de endpoints.
-- `src/models`: acceso a datos.
-- `src/database`: base en memoria para pruebas.
-- `src/middlewares`: validaciones y filtros.
+- Sube el contenido de esta rama al repositorio de GitHub que ya usas para Martinez.
+- Activa GitHub Pages desde Settings -> Pages y elige la rama que publique [index.html](index.html) desde la raíz.
+- GitHub Pages sirve por HTTPS, no por HTTP plano.
 
-## Pasos de uso
+## Cómo funciona la web pública
+
+- La mini web genera una lectura demo en el navegador con `Math.random()`.
+- Muestra exterior, interior, delta y un mensaje aleatorio sin usar servidor.
+- El botón principal sigue llevando a la web de Lovable.
+
+## Flutter Android
 
 1. Instalar dependencias:
 
 ```bash
-npm install
+flutter pub get
 ```
 
-1. (Opcional) crear archivo `.env` usando `.env.example`.
-2. Ejecutar en desarrollo:
+1. Ejecutar en un emulador Android:
 
 ```bash
-npm run dev
+flutter run
 ```
 
-1. Probar rutas:
+## Archivos clave
 
-- `GET http://localhost:3000/api/v1/estado`
-- `GET http://localhost:3000/api/v1/clientes`
-- `GET http://localhost:3000/api/v1/clientes?activo=true`
-- `GET http://localhost:3000/api/v1/clientes/1`
-- `POST http://localhost:3000/api/v1/clientes`
-- `PUT http://localhost:3000/api/v1/clientes/1`
-- `DELETE http://localhost:3000/api/v1/clientes/1`
+- [index.html](index.html)
+- [lib/main.dart](lib/main.dart)
+- [pubspec.yaml](pubspec.yaml)
 
-Ejemplo de body para POST/PUT:
+## Nota
 
-```json
-{
-  "nombre": "Martinez",
-  "correo": "martinez@demo.com",
-  "activo": true,
-  "tipo": "premium"
-}
-```
+Si más adelante quieres recuperar el backend, los archivos siguen en `backend/` sin afectar el sitio estático.
