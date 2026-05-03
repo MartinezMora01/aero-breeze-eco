@@ -1,703 +1,206 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Aero-Freez Monitor - lectura de temperatura exterior, interior simulada y mensaje del proyecto." />
-  <title>Aero-Freez Monitor</title>
-  <style>
-    :root {
-      --bg: #08111d;
-      --bg-soft: #0d1b2b;
-      --card: rgba(9, 22, 35, 0.82);
-      --card-strong: rgba(12, 29, 46, 0.94);
-      --line: rgba(104, 213, 255, 0.18);
-      --line-strong: rgba(104, 213, 255, 0.32);
-      --text: #f4fbff;
-      --muted: rgba(215, 235, 247, 0.75);
-      --primary: #5ddcff;
-      --secondary: #7ef0b4;
-      --accent: #ffb15c;
-      --danger: #ff7d8a;
-      --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
-      --radius: 28px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Aptos", "Segoe UI", "Trebuchet MS", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(93, 220, 255, 0.16), transparent 30%),
-        radial-gradient(circle at top right, rgba(126, 240, 180, 0.14), transparent 28%),
-        radial-gradient(circle at 50% 110%, rgba(255, 177, 92, 0.08), transparent 35%),
-        linear-gradient(180deg, #06101a 0%, var(--bg) 42%, #06101a 100%);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 36px 36px;
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 88%);
-      opacity: 0.6;
-    }
-
-    .shell {
-      width: min(1080px, calc(100% - 24px));
-      margin: 0 auto;
-      padding: 18px 0 28px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 2px 18px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      background: linear-gradient(145deg, rgba(93, 220, 255, 0.24), rgba(126, 240, 180, 0.18));
-      border: 1px solid var(--line);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      font-size: 1rem;
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      background: rgba(9, 22, 35, 0.55);
-      backdrop-filter: blur(16px);
-      font-size: 0.9rem;
-    }
-
-    .chip strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .hero {
-      display: grid;
-      gap: 18px;
-      grid-template-columns: 1.2fr 0.8fr;
-      align-items: stretch;
-      margin-top: 8px;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(14, 28, 44, 0.92), rgba(9, 21, 34, 0.86));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-
-    .panel-main {
-      padding: 28px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .panel-main::after {
-      content: "";
-      position: absolute;
-      inset: auto -40px -60px auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(93, 220, 255, 0.22), transparent 68%);
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-size: 0.86rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--secondary);
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--secondary);
-      box-shadow: 0 0 0 6px rgba(126, 240, 180, 0.12);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.3rem, 6vw, 4.8rem);
-      line-height: 0.96;
-      letter-spacing: -0.04em;
-      max-width: 11ch;
-    }
-
-    .lede {
-      margin: 18px 0 0;
-      max-width: 56ch;
-      color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.6;
-    }
-
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    .btn {
-      appearance: none;
-      border: 0;
-      border-radius: 999px;
-      padding: 13px 18px;
-      font: inherit;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #03111a;
-      box-shadow: 0 18px 32px rgba(93, 220, 255, 0.18);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .side {
-      display: grid;
-      gap: 16px;
-    }
-
-    .status-card {
-      padding: 22px;
-      display: grid;
-      gap: 12px;
-      align-content: space-between;
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .status-value {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-    }
-
-    .status-value strong {
-      font-size: clamp(2.8rem, 8vw, 4.4rem);
-      line-height: 0.95;
-    }
-
-    .status-note {
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 0.95rem;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .metric {
-      padding: 18px;
-      background: linear-gradient(180deg, rgba(7, 18, 30, 0.7), rgba(11, 25, 40, 0.9));
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      min-height: 132px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .metric-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .metric-value {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.05em;
-      line-height: 1;
-    }
-
-    .metric-caption {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.4;
-    }
-
-    .accent-bar {
-      height: 4px;
-      width: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-      opacity: 0.95;
-    }
-
-    .content-grid {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: 1fr 0.95fr;
-      margin-top: 18px;
-    }
-
-    .message-card,
-    .details-card {
-      padding: 22px;
-    }
-
-    .section-title {
-      margin: 0 0 12px;
-      font-size: 0.92rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--secondary);
-    }
-
-    .message {
-      margin: 0;
-      font-size: clamp(1.05rem, 2.7vw, 1.42rem);
-      line-height: 1.45;
-      letter-spacing: -0.01em;
-    }
-
-    .details-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .detail {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .detail:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .detail span {
-      color: var(--muted);
-    }
-
-    .detail strong {
-      text-align: right;
-      font-weight: 700;
-    }
-
-    .footer-note {
-      margin-top: 16px;
-      padding: 16px 20px;
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      background: rgba(8, 17, 29, 0.5);
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 0.94rem;
-    }
-
-    .loading-skeleton {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
-      background-size: 220% 100%;
-      animation: shimmer 1.2s ease infinite;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .error {
-      color: var(--danger);
-    }
-
-    @keyframes shimmer {
-      0% {
-        background-position: 200% 0;
-      }
-      100% {
-        background-position: -200% 0;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .hero,
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .top-actions {
-        justify-content: flex-start;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .shell {
-        width: min(100% - 18px, 100%);
-        padding-top: 10px;
-      }
-
-      .panel-main,
-      .status-card,
-      .message-card,
-      .details-card {
-        padding: 18px;
-      }
-
-      h1 {
-        max-width: 100%;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .actions {
-        width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AeroFreez - Sistema de monitoreo de temperatura QR. Panel de ventilación pasiva fabricado con botellas PET recicladas.">
+    <title>AeroFreez — Monitor de Temperatura QR</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2a322e;
+            --light: #faf8f5;
+            --sage: #849980;
+            --accent: #6ba878;
+            --dark: #1a1f1c;
+            --gray: #e0ddd9;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+        header {
+            background: var(--light);
+            border-bottom: 1px solid var(--gray);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--primary);
+        }
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--sage);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            padding: 0.85rem 2rem;
+            border: 2px solid var(--primary);
+            background: var(--primary);
+            color: var(--light);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: var(--dark);
+            border-color: var(--dark);
+            transform: translateY(-2px);
+        }
+        section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .qr-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--sage);
+        }
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .qr-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--gray);
+        }
+        .qr-card img {
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        footer {
+            background: var(--primary);
+            color: var(--light);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand">
-        <span class="brand-mark">A</span>
-        <span>Aero-Freez Monitor</span>
-      </div>
-      <div class="top-actions">
-        <span class="chip" id="connectionChip">Sin backend</span>
-        <a class="chip" href="https://aero-breeze-eco.lovable.app" target="_blank" rel="noreferrer">
-          Ir a la web principal
-        </a>
-      </div>
+    <header>
+        <div class="header-content">
+            <div class="logo">AEROFREEZ™</div>
+        </div>
     </header>
 
     <section class="hero">
-      <article class="panel panel-main">
-        <div class="eyebrow">Validación térmica en tiempo real</div>
-        <h1>Enfría tu hogar, refresca al planeta.</h1>
-        <p class="lede">
-          Esta pantalla resume la lectura exterior de Esmeraldas, calcula el confort interior que genera Aero-Freez y te muestra un mensaje del proyecto en cada escaneo.
-        </p>
-        <div class="actions">
-          <button class="btn btn-primary" id="refreshButton" type="button">Actualizar lectura</button>
-          <a class="btn btn-secondary" href="https://aero-breeze-eco.lovable.app" target="_blank" rel="noreferrer">Abrir sitio principal</a>
+        <h1>Enfría tu hogar, refresca al planeta</h1>
+        <p>Sistema de monitoreo de temperatura en tiempo real. Panel de ventilación pasiva fabricado con botellas PET recicladas.</p>
+        <div class="btn-group">
+            <a href="#monitor" class="btn">Ver Monitor QR</a>
+            <a href="https://github.com/MartinezMora01/aero-breeze-eco" class="btn" style="background:transparent; color: var(--primary);">GitHub</a>
         </div>
-        <div class="stats" aria-live="polite">
-          <article class="metric">
-            <div class="metric-label">
-              <span>Exterior</span>
-              <span id="sourceBadge">Demo</span>
-            </div>
-            <div class="metric-value"><span id="exteriorValue">--</span><span aria-hidden="true">°C</span></div>
-            <div class="metric-caption">Lectura demo generada al cargar la página o al pulsar actualizar.</div>
-          </article>
-          <article class="metric">
-            <div class="metric-label">
-              <span>Interior</span>
-              <span>Simulada</span>
-            </div>
-            <div class="metric-value"><span id="interiorValue">--</span><span aria-hidden="true">°C</span></div>
-            <div class="metric-caption">Exterior menos una caída aleatoria entre 3 y 7 grados.</div>
-          </article>
-          <article class="metric">
-            <div class="metric-label">
-              <span>Delta</span>
-              <span>Ventaja térmica</span>
-            </div>
-            <div class="metric-value"><span id="deltaValue">--</span><span aria-hidden="true">°C</span></div>
-            <div class="metric-caption">Cuanto más negativo, mayor el alivio térmico logrado por el panel.</div>
-          </article>
-        </div>
-      </article>
-
-      <aside class="side">
-        <section class="panel status-card">
-          <div class="status-row">
-            <span>Estado</span>
-            <span class="chip" id="modeChip">Esperando datos</span>
-          </div>
-          <div class="status-value">
-            <strong id="bigDelta">--</strong>
-            <span>°C</span>
-          </div>
-          <p class="status-note" id="statusNote">GitHub Pages funciona con contenido estático y sin backend.</p>
-          <div class="accent-bar"></div>
-        </section>
-
-        <section class="panel message-card">
-          <div class="section-title">Mensaje del QR</div>
-          <p class="message" id="messageText">Cargando mensaje aleatorio...</p>
-        </section>
-      </aside>
     </section>
 
-    <section class="content-grid">
-      <article class="panel details-card">
-        <div class="section-title">Resumen técnico</div>
-        <div class="details-list">
-          <div class="detail">
-            <span>Ciudad consultada</span>
-            <strong>Esmeraldas, EC</strong>
-          </div>
-          <div class="detail">
-            <span>Rango interior simulado</span>
-            <strong>Exterior - 3 a 7 °C</strong>
-          </div>
-          <div class="detail">
-            <span>Fuente del sitio</span>
-            <strong>JavaScript estatico</strong>
-          </div>
+    <section id="monitor">
+        <h2>Código QR para Monitoreo</h2>
+        <p>Escanea cualquiera de estos códigos QR con tu teléfono para acceder al panel de temperatura en vivo</p>
+        <div class="qr-section">
+            <div class="qr-grid">
+                <div class="qr-card">
+                    <h3>📱 QR Estándar</h3>
+                    <img src="aero-breeze-qr.png" alt="QR Code Estándar">
+                    <p>Para redes sociales y pantallas</p>
+                </div>
+                <div class="qr-card">
+                    <h3>📄 QR Grande</h3>
+                    <img src="aero-breeze-qr-large.png" alt="QR Code Grande">
+                    <p>Para impresión en carteles</p>
+                </div>
+                <div class="qr-card">
+                    <h3>🎯 QR Vectorial</h3>
+                    <p>Formato SVG escalable</p>
+                    <a href="aero-breeze-qr.svg" class="btn" style="display:inline-block; width: auto; margin-top: 1rem; font-size: 0.9rem;">Descargar SVG</a>
+                </div>
+            </div>
         </div>
-      </article>
-      <article class="panel details-card">
-        <div class="section-title">Notas</div>
-        <p class="message" style="font-size: 1rem; margin-bottom: 0; color: var(--muted);">
-          Esta versión está pensada para GitHub Pages: un solo archivo, sin servidor y sin variables de entorno.
-        </p>
-      </article>
     </section>
 
-    <p class="footer-note" id="footerNote">
-      Publicación estática lista para GitHub Pages.
-    </p>
-  </main>
+    <section style="background: white; border-top: 2px solid var(--gray);">
+        <h2>Características</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            <div style="padding: 1.5rem; border-left: 4px solid var(--sage);">
+                <h3>🌡️ Temperatura Real</h3>
+                <p>Monitoreo en vivo del interior y exterior</p>
+            </div>
+            <div style="padding: 1.5rem; border-left: 4px solid var(--sage);">
+                <h3>♻️ Eco-Amigable</h3>
+                <p>Fabricado con botellas PET recicladas</p>
+            </div>
+            <div style="padding: 1.5rem; border-left: 4px solid var(--sage);">
+                <h3>💡 Pasivo</h3>
+                <p>Sin consumo de electricidad</p>
+            </div>
+            <div style="padding: 1.5rem; border-left: 4px solid var(--sage);">
+                <h3>📊 Análisis</h3>
+                <p>Mensajes de impacto ambiental</p>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    const mensajes = [
-      "Esta botella que ves fue rescatada del basurero. Ahora enfria tu habitacion.",
-      "El plastico no tiene que ser un problema. Aero-Freez lo convierte en solucion.",
-      "Sin electricidad, sin costo, sin contaminacion. Solo fisica y creatividad.",
-      "Cada botella en este panel evito contaminar el suelo por mas de 400 anos.",
-      "El efecto Venturi hace que el aire se acelere al pasar por el cuello de la botella.",
-      "Esta botella vivia en la basura. Hoy te da aire fresco.",
-      "Un panel Aero-Freez reduce entre 3 y 7 grados la temperatura interior.",
-      "El aire caliente entra por la base ancha y sale frio por el cuello estrecho.",
-      "Economia circular en su maxima expresion: basura convertida en tecnologia.",
-      "Esmeraldas tiene un promedio de 32 grados. Aero-Freez lo baja a 25 sin luz.",
-      "El efecto Joule-Thomson explica por que el aire se enfria al expandirse.",
-      "No necesitas enchufar nada. El viento hace todo el trabajo.",
-      "Con 60 botellas recicladas se construye un panel de 1 metro cuadrado.",
-      "Cada familia que usa Aero-Freez ahorra mas de 40 dolares al mes en luz.",
-      "La geometria del cuello de la botella es un acelerador de flujo natural.",
-      "Este sistema funciona mejor cuando hay una brisa de al menos 8 kilometros por hora.",
-      "La inercia termica del PET evita que el calor externo entre al sistema.",
-      "Un panel de ventana estandar requiere aproximadamente 70 botellas de 2 litros.",
-      "Aero-Freez tarda entre 45 y 60 minutos en estabilizar la temperatura de una habitacion.",
-      "El poliestireno tereftalato actua como aislante ligero contra el calor radiante.",
-      "Producir 100 paneles elimina 7000 botellas de los vertederos locales.",
-      "Ecuador genera miles de toneladas de PET al ano. Aero-Freez las aprovecha.",
-      "Este prototipo nacio en Esmeraldas, Ecuador, con cero presupuesto.",
-      "La ventana mas barata del mundo es un panel de botellas recicladas.",
-      "Un aire acondicionado consume 1.2 kilovatios por hora. Aero-Freez consume cero.",
-      "Ocho horas diarias de aire acondicionado generan 288 kilovatios al mes. Aero-Freez ninguno.",
-      "La tasa de reciclaje de PET en Ecuador sigue siendo insuficiente. Esto es parte del cambio.",
-      "El confort termico no deberia ser un lujo. Aero-Freez lo democratiza.",
-      "Fabricado con madera reciclada y botellas de la calle. Costo de materiales: menos de 10 dolares.",
-      "La fisica hace el trabajo. Tu solo instalas el panel.",
-      "Este sistema fue disenado para zonas costeras con altas temperaturas como Esmeraldas.",
-      "Cada botella en este panel tiene una historia antes de llegar aqui.",
-      "No hay motor, no hay compresor, no hay factura de luz. Solo flujo de aire inteligente.",
-      "La reduccion termica comprobada en campo es de entre 4 y 7 grados Celsius.",
-      "El chasis puede fabricarse con madera tratada o material compuesto reciclado.",
-      "La filtracion opcional con carbon activado reduce particulas PM2.5 y polen.",
-      "El viento predominante en la costa ecuatoriana viene del norte y del sur.",
-      "Se recomienda limpieza semestral para evitar sedimentos salinos en las boquillas.",
-      "El retorno de inversion para una familia es menor a 2 meses comparado con el aire acondicionado.",
-      "La brisa minima requerida para activar el flujo convectivo optimo es de 2 metros por segundo.",
-      "A diferencia del aire acondicionado, Aero-Freez no emite gases de efecto invernadero.",
-      "El panel estandar tiene entre 55 y 60 boquillas por metro cuadrado.",
-      "Esta tecnologia es replicable por cualquier persona con acceso a botellas y madera.",
-      "El diseno puede ajustarse a marcos de ventana de cualquier tamano.",
-      "Los efectos Venturi y Joule-Thomson son los mismos que usan los aviones para volar.",
-      "La innovacion no siempre viene de laboratorios. A veces viene del patio de tu casa.",
-      "Aero-Freez es una solucion de bajo costo para un problema de alto impacto.",
-      "La pobreza energetica afecta a miles de familias en la costa ecuatoriana.",
-      "Este sistema puede escalar desde una ventana hasta un edificio completo.",
-      "El calor no se destruye, se redirige. Eso es exactamente lo que hace Aero-Freez.",
-      "La temperatura exterior de Esmeraldas promedia 33 grados en verano.",
-      "Instalar Aero-Freez en fachadas norte-sur maximiza el aprovechamiento del viento costero.",
-      "Un proyecto universitario puede ser una solucion real para una comunidad real.",
-      "La tecnologia mas sostenible es la que usa lo que ya existe.",
-      "El diseno de boquillas fue optimizado mediante principios de dinamica de fluidos.",
-      "Aero-Freez combina ingenieria, ecologia y economia en un solo panel.",
-      "Cada grado que baja la temperatura interior mejora la calidad de vida de una familia.",
-      "Este panel no necesita mantenimiento especializado ni tecnicos certificados.",
-      "El futuro de la climatizacion no es mas electricidad. Es mas inteligencia.",
-      "Reciclar una botella PET ahorra el 60 por ciento de la energia necesaria para fabricar una nueva.",
-      "Aero-Freez convierte un residuo de bajo valor en un activo tecnologico.",
-      "El precio de reciclaje del PET en Ecuador es de aproximadamente 0.46 dolares por kilogramo.",
-      "Este sistema puede combinarse con ventilacion cruzada para maximizar el efecto de enfriamiento.",
-      "La climatizacion pasiva existe desde hace siglos. Aero-Freez la actualiza con materiales modernos.",
-      "Una habitacion de 12 metros cuadrados puede climatizarse con un solo panel estandar.",
-      "El color blanco translucido del PET refleja parte de la radiacion solar directa.",
-      "Aero-Freez no tiene partes moviles. No se puede romper de forma convencional.",
-      "Este proyecto demuestra que la tecnologia util no siempre cuesta mucho dinero.",
-      "El aire que sientes ahora paso por 60 cuellos de botella antes de llegar a ti.",
-      "Reducir el consumo electrico en el hogar reduce tambien la dependencia de combustibles fosiles.",
-      "La ventilacion natural es la tecnologia de climatizacion mas antigua y mas eficiente.",
-      "Aero-Freez es escalable, replicable y fabricable con residuos locales en cualquier ciudad costera.",
-      "Este prototipo fue construido como demostracion de que la ecologia y la tecnologia se complementan."
-    ];
-
-    const formatter = new Intl.NumberFormat("es-EC", {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1
-    });
-
-    const nodes = {
-      refreshButton: document.getElementById("refreshButton"),
-      connectionChip: document.getElementById("connectionChip"),
-      sourceBadge: document.getElementById("sourceBadge"),
-      modeChip: document.getElementById("modeChip"),
-      statusNote: document.getElementById("statusNote"),
-      exteriorValue: document.getElementById("exteriorValue"),
-      interiorValue: document.getElementById("interiorValue"),
-      deltaValue: document.getElementById("deltaValue"),
-      bigDelta: document.getElementById("bigDelta"),
-      messageText: document.getElementById("messageText"),
-      footerNote: document.getElementById("footerNote")
-    };
-
-    function formatNumber(value) {
-      return formatter.format(Number(value));
-    }
-
-    function generarLecturaDemo() {
-      const exterior = 30 + Math.random() * 6;
-      const descuento = 3 + Math.floor(Math.random() * 5);
-      const interior = exterior - descuento;
-      const delta = interior - exterior;
-
-      return {
-        exterior,
-        interior,
-        delta,
-        mensaje: mensajes[Math.floor(Math.random() * mensajes.length)],
-        modo: "demo"
-      };
-    }
-
-    function render(data) {
-      nodes.exteriorValue.textContent = formatNumber(data.exterior);
-      nodes.interiorValue.textContent = formatNumber(data.interior);
-      nodes.deltaValue.textContent = formatNumber(data.delta);
-      nodes.bigDelta.textContent = `${formatNumber(data.delta)}`;
-      nodes.messageText.textContent = data.mensaje || "Mensaje no disponible.";
-      nodes.sourceBadge.textContent = "Demo";
-      nodes.modeChip.textContent = "Estático";
-      nodes.connectionChip.textContent = "Sin backend";
-      nodes.statusNote.textContent = "GitHub Pages no usa backend; esta versión funciona solo con JavaScript estático.";
-      nodes.footerNote.textContent = "Publica este archivo en GitHub Pages y funcionará sin servidor ni variables de entorno.";
-    }
-
-    function cargarTemperatura() {
-      render(generarLecturaDemo());
-    }
-
-    nodes.refreshButton.addEventListener("click", cargarTemperatura);
-    cargarTemperatura();
-  </script>
+    <footer>
+        <p>© 2026 AEROFREEZ™ — ECO-ENGINEERING SOLUTIONS</p>
+        <p>Innovación que respira. <a href="https://github.com/MartinezMora01" style="color: var(--sage); text-decoration: none;">GitHub</a></p>
+    </footer>
 </body>
 </html>
