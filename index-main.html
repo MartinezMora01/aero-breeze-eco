@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AeroFreez - Sistema de monitoreo de temperatura QR. Panel de ventilación pasiva fabricado con botellas PET recicladas.">
+    <title>AeroFreez — Monitor de Temperatura QR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2a322e;
+            --light: #faf8f5;
+            --sage: #849980;
+            --accent: #6ba878;
+            --dark: #1a1f1c;
+            --gray: #e0ddd9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: var(--light);
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            border-bottom: 1px solid var(--gray);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--primary);
+        }
+
+        nav a {
+            display: inline-block;
+            margin-left: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--sage);
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--sage);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Botones */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border: 2px solid var(--primary);
+            background: var(--primary);
+            color: var(--light);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--dark);
+            border-color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray);
+        }
+
+        /* Secciones */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        section p {
+            font-size: 1.05rem;
+            color: rgba(42, 50, 46, 0.8);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            text-align: center;
+        }
+
+        /* Grid de características */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--sage);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 8px 24px rgba(42, 50, 46, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            margin: 0;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        /* QR Section */
+        .qr-section {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .qr-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .qr-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--sage);
+        }
+
+        .qr-card img {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            margin: 1rem 0;
+        }
+
+        .qr-card p {
+            font-size: 0.9rem;
+            color: var(--sage);
+            margin-top: 1rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--light);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">AEROFREEZ™</div>
+            <nav>
+                <a href="#sistema">Sistema</a>
+                <a href="#monitoreo">Monitoreo</a>
+                <a href="#impacto">Impacto</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Enfría tu hogar, refresca al planeta</h1>
+        <p>Panel de ventilación pasiva fabricado con botellas PET recicladas. Reduce hasta 6°C sin electricidad.</p>
+        <div class="btn-group">
+            <button class="btn" onclick="window.location.href='#monitoreo'">Ver Panel de Control</button>
+            <button class="btn btn-secondary" onclick="window.location.href='#contacto'">Más información</button>
+        </div>
+    </section>
+
+    <section id="sistema">
+        <h2>¿Cómo Funciona?</h2>
+        <p>Física simple con resultados medibles. El efecto Bernoulli enfría el aire sin consumir energía.</p>
+        <div class="features">
+            <div class="feature-card">
+                <h3>🔄 Botellas Recicladas</h3>
+                <p>Recuperamos botellas PET de la comunidad y las ensamblamos en un marco de madera rígido.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💨 Efecto Bernoulli</h3>
+                <p>El aire caliente se acelera en el cuello estrecho de cada botella, bajando su temperatura.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Ventilación Pasiva</h3>
+                <p>Funciona solo con el viento. Cero electricidad, cero ruido, cero mantenimiento.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="monitoreo">
+        <h2>Monitorea tu Temperatura</h2>
+        <p>Accede en tiempo real a los datos de temperatura interior y exterior desde tu teléfono.</p>
+        <div class="qr-section">
+            <h3>Escanea el QR para ver la temperatura</h3>
+            <div class="qr-grid">
+                <div class="qr-card">
+                    <h4>Mini App QR</h4>
+                    <svg id="qr-svg" style="max-width: 220px; width: 100%; height: auto;"></svg>
+                    <p>Apunta tu cámara aquí para ver la temperatura en vivo</p>
+                </div>
+                <div class="qr-card">
+                    <h4>PNG Descargable</h4>
+                    <img id="qr-png" alt="QR Code PNG" style="background: white; padding: 10px; border-radius: 4px;">
+                    <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="descargarQR()">Descargar QR</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impacto">
+        <h2>Impacto Verificado</h2>
+        <p>Cada panel AeroFreez instalado crea un cambio medible.</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">6°C</div>
+                <div class="stat-label">Reducción de Temperatura</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">0 kWh</div>
+                <div class="stat-label">Consumo Eléctrico</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">60 botellas</div>
+                <div class="stat-label">PET Reciclado por Panel</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">$22/mes</div>
+                <div class="stat-label">Ahorro Estimado</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" style="background: var(--light); text-align: center;">
+        <h2>Lleva AeroFreez a tu Hogar</h2>
+        <p>Cuéntanos sobre tu espacio y diseñaremos un panel a la medida.</p>
+        <div class="btn-group">
+            <a href="mailto:contacto@aerofreez.com" class="btn">Solicitar Consulta</a>
+            <a href="https://martinezmora01.github.io/aero-breeze-qr/" class="btn btn-secondary">Ver Monitor</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 AEROFREEZ™ — ECO-ENGINEERING SOLUTIONS</p>
+        <p>Innovación que respira. <a href="https://github.com/MartinezMora01/aero-breeze-eco" style="color: var(--sage); text-decoration: none;">GitHub</a></p>
+    </footer>
+
+    <script>
+        // Generar QR con la URL de la mini web
+        const qrURL = 'https://martinezmora01.github.io/aero-breeze-qr/';
+        
+        // Función para cargar la librería QR.js
+        function cargarQR() {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+            script.onload = function() {
+                generarQRSVG();
+                generarQRPNG();
+            };
+            document.head.appendChild(script);
+        }
+
+        function generarQRSVG() {
+            const qrSvg = document.getElementById('qr-svg');
+            qrSvg.innerHTML = '';
+            
+            // Crear QR usando canvas y convertir a SVG
+            const canvas = document.createElement('canvas');
+            new QRCode({
+                text: qrURL,
+                width: 220,
+                height: 220,
+                colorDark: '#2a322e',
+                colorLight: '#faf8f5',
+                correctLevel: QRCode.CorrectLevel.H
+            }).makeCode(qrURL);
+            
+            // Alternativa: usar directamente canvas to SVG
+            const qrContainer = document.createElement('div');
+            qrContainer.id = 'qrcode-temp';
+            qrContainer.style.display = 'none';
+            document.body.appendChild(qrContainer);
+            
+            new QRCode(qrContainer, {
+                text: qrURL,
+                width: 220,
+                height: 220,
+                colorDark: '#2a322e',
+                colorLight: '#faf8f5',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            const qrCanvas = qrContainer.querySelector('canvas');
+            if(qrCanvas) {
+                // Convertir canvas a SVG
+                const ctx = qrCanvas.getContext('2d');
+                const imageData = ctx.getImageData(0, 0, qrCanvas.width, qrCanvas.height);
+                const data = imageData.data;
+                
+                let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220">`;
+                svgContent += `<rect width="220" height="220" fill="#faf8f5"/>`;
+                
+                for(let i = 0; i < data.length; i += 4) {
+                    const pixelIndex = i / 4;
+                    const x = (pixelIndex % 220) * (220/220);
+                    const y = Math.floor(pixelIndex / 220) * (220/220);
+                    const rgba = `rgb(${data[i]},${data[i+1]},${data[i+2]})`;
+                    if(data[i+3] > 0) {
+                        svgContent += `<rect x="${x}" y="${y}" width="${220/220}" height="${220/220}" fill="${rgba}"/>`;
+                    }
+                }
+                svgContent += `</svg>`;
+                qrSvg.innerHTML = svgContent;
+            }
+            
+            qrContainer.remove();
+        }
+
+        function generarQRPNG() {
+            // Generar QR PNG de forma más simple
+            const qrContainer = document.createElement('div');
+            qrContainer.id = 'qrcode-png-temp';
+            qrContainer.style.display = 'none';
+            document.body.appendChild(qrContainer);
+            
+            new QRCode(qrContainer, {
+                text: qrURL,
+                width: 220,
+                height: 220,
+                colorDark: '#2a322e',
+                colorLight: '#faf8f5',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            const qrCanvas = qrContainer.querySelector('canvas');
+            if(qrCanvas) {
+                const qrPng = document.getElementById('qr-png');
+                qrPng.src = qrCanvas.toDataURL('image/png');
+            }
+            
+            qrContainer.remove();
+        }
+
+        function descargarQR() {
+            const qrPng = document.getElementById('qr-png');
+            if(qrPng && qrPng.src) {
+                const link = document.createElement('a');
+                link.href = qrPng.src;
+                link.download = 'aero-breeze-qr.png';
+                link.click();
+            }
+        }
+
+        // Cargar QR cuando el documento esté listo
+        document.addEventListener('DOMContentLoaded', cargarQR);
+    </script>
+</body>
+</html>

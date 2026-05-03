@@ -1,0 +1,23 @@
+{
+  "name": "aerofreez-backend",
+  "version": "1.0.0",
+  "description": "Backend de Aero-Freez para consultar temperatura exterior y componer la respuesta del QR",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "aerofreez",
+    "express",
+    "openweathermap"
+  ],
+  "author": "Martinez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2"
+  }
+}

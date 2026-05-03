@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroFreez QR Codes - Vista Previa</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #faf8f5;
+            padding: 2rem;
+            color: #2a322e;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 3rem; font-size: 2rem; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #849980;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(42, 50, 46, 0.15);
+        }
+        .card h3 { margin-bottom: 1rem; color: #2a322e; }
+        .card img, .card svg {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border: 1px solid #e0ddd9;
+            border-radius: 4px;
+        }
+        .card p { font-size: 0.9rem; color: #849980; margin: 1rem 0; }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #2a322e;
+            color: #faf8f5;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn:hover { background: #1a1f1c; transform: translateY(-2px); }
+        .info {
+            background: #849980;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .url {
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 AeroFreez QR Codes</h1>
+        
+        <div class="info">
+            <p><strong>URL Apuntada:</strong></p>
+            <div class="url">https://martinezmora01.github.io/aero-breeze-qr/</div>
+            <p><strong>Colores:</strong> Verde Oscuro (#2a322e) y Crema (#faf8f5)</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>📱 QR PNG Estándar</h3>
+                <img src="aero-breeze-qr.png" alt="QR Code Standard">
+                <p>Para usar en redes sociales y documentos digitales</p>
+                <a href="aero-breeze-qr.png" download class="btn">Descargar PNG</a>
+            </div>
+
+            <div class="card">
+                <h3>📄 QR PNG Grande</h3>
+                <img src="aero-breeze-qr-large.png" alt="QR Code Large">
+                <p>300x300px - Para impresión en alta resolución</p>
+                <a href="aero-breeze-qr-large.png" download class="btn">Descargar PNG</a>
+            </div>
+
+            <div class="card">
+                <h3>🎯 QR SVG Vectorial</h3>
+                <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #e0ddd9; border-radius: 4px;">
+                    <rect width="220" height="220" fill="#faf8f5"/>
+                    <text x="110" y="110" font-size="14" text-anchor="middle" fill="#2a322e">QR SVG</text>
+                </svg>
+                <p>Formato vectorial - Escalable a cualquier tamaño sin pérdida</p>
+                <a href="aero-breeze-qr.svg" download class="btn">Descargar SVG</a>
+            </div>
+
+            <div class="card">
+                <h3>✨ QR Decorado</h3>
+                <img src="aero-breeze-qr.png" alt="QR Code Decorated" style="border-radius: 12px;">
+                <p>Versión mejorada con efectos visuales</p>
+                <a href="aero-breeze-qr-decorated.svg" download class="btn">Descargar SVG</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; padding: 2rem; background: white; border-radius: 8px; border: 2px solid #849980;">
+            <h3>📋 Instrucciones de Uso</h3>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Redes Sociales:</strong> Usa los PNG (estándar o grande)</li>
+                <li><strong>Carteles/Impresión:</strong> Usa el PNG grande o SVG</li>
+                <li><strong>Documentos Digitales:</strong> Usa SVG para mejor calidad</li>
+                <li><strong>Tamaño Mínimo:</strong> 100x100px para que sea legible en móviles</li>
+                <li><strong>Espacio en Blanco:</strong> Mantén al menos 20px de margen alrededor del QR</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
