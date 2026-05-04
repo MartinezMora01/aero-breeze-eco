@@ -146,12 +146,12 @@
       const city = "Esmeraldas,EC";
       
       try {
-        const response = await fetch(https://api.openweathermap.org/data/2.5/weather?q=\&appid=\&units=metric);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
         if(response.ok) {
           const data = await response.json();
           const ext = Math.round(data.main.temp * 10) / 10;
           
-          // Calcular simulacion interior (3 a 7 grados menos)
+          // Calcular temperatura interior proyectada (3 a 7 grados menos)
           const reduccion = Math.floor(Math.random() * (7 - 3 + 1)) + 3;
           const int = ext - reduccion;
           const delta = int - ext;
