@@ -61,7 +61,7 @@
 <body>
   <header class="header">
     <div class="brand"><div class="brand-icon">A</div>AERO-FREEZ MONITOR</div>
-    <a href="https://aero-breeze-eco.lovable.app" class="nav-btn">Ir a la web principal</a>
+    <a href="https://martinezmora01.github.io/aero-breeze-eco/" class="nav-btn">Ir a la web principal</a>
   </header>
 
   <div class="dashboard">
@@ -119,11 +119,11 @@
   </div>
 
   <script>
-    // BLOQUEO DE SEGURIDAD BÁSICO: Solo se ve si vienes con el token del QR
-    // (Comentado para permitir el acceso al desarrollar y visualizar localmente)
-    /*
+    // BLOQUEO DE SEGURIDAD BÁSICO: Obfuscado para evitar lectura en texto plano
     const params = new URLSearchParams(window.location.search);
-    if (params.get('auth') !== 'scan_aero_24') {
+    const token = params.get('auth');
+    // 'c2Nhbl9hZXJvXzI0' es 'scan_aero_24' codificado en base64
+    if (!token || btoa(token) !== 'c2Nhbl9hZXJvXzI0') {
       document.body.innerHTML = `
         <div style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#2a322e; color:#faf8f5; font-family:system-ui; padding:20px; text-align:center;">
           <div style="width:60px; height:60px; border-radius:50%; border:3px solid #6ba878; display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:bold; margin-bottom:20px; color:#6ba878;">!</div>
@@ -133,7 +133,6 @@
       `;
       throw new Error("Acceso denegado, debe escanear el QR físico.");
     }
-    */
 
     const mensajes = [
       "Esta botella que ves fue rescatada del basurero. Ahora enfria tu habitacion.",
@@ -251,6 +250,11 @@
       document.getElementById('randomMsg').innerText = msg;
     }
 
+    // Inicializar
+    fetchData();
+  </script>
+</body>
+</html>
     // Inicializar
     fetchData();
   </script>
